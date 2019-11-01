@@ -1,0 +1,12 @@
+#sec-modeles{
+    background: #313131;
+}
+#sec-modeles .grid{
+    margin: auto;
+    padding: 20px 0 30px;
+    max-width: 630px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 10px;
+}
+
