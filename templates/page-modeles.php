@@ -7,51 +7,43 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit( 'Direct script access denied.' );
 }
-?>
-<?php get_header();
+ get_header();
 
     ?>
     <section id="sec-filtres">
-        <?php
-        form();
-        ?>
+
+        <form id='filtres_modeles' method='POST'>
+            <select name='modeles' id='modeles'>
+                <option value='tous'>Tous</option>
+                <option value='jumele-cottage'>Jumelé Cottage</option>
+                <option value='jumele-plein-pied'>Jumelé plein pied</option>
+                <option value='maison-cottage'>Jumelé Cottage</option>
+                <option value='maison-plein-pied'>Jumelé plein pied</option>
+            </select>
+            <select name='chambres' id='chambres'>
+                <option value='tous'>Tous</option>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3+'>3 et +</option>
+            </select>
+            <select name='sbd' id='sdb'>
+                <option value='tous'>Tous</option>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3+'>3 et +</option>
+            </select>
+            <select name='superficie' id='superficie'>
+                <option value='tous'>Tous</option>
+                <option value='1000-1400'>1000 à 1400p2</option>
+                <option value='1401-1800'>1401 à 1800p2</option>
+                <option value='1801+'>1801p2 et +</option>
+            </select>
+            <button class='btn' type='submit'>Rechercher</button>
+        </form>
 
     </section>
-    <section id="sec-modeles">
-        <?php
 
-        $args = [
-            'post_type' => 'modeles',
-            'post_per_pages' => -1
-        ];
-        $query_modeles = new WP_Query( $args );
-        if ($query_modeles->have_posts()){
-            echo "<div class='grid'>";
-            while ($query_modeles->have_posts() ){
-                $query_modeles->the_post();
-                echo "<div>";
-                the_post_thumbnail( 'thumbnail' );
-                echo "</div>";
-            }
-            echo "</div>";
-        }
-
-        if(isset($_GET['modeles'])){
-            echo "<h1>bonjours</h1>";
-        }
-        ?>
-    </section>
-    <section id="content" <?php Avada()->layout->add_class( 'content_class' ); ?> <?php Avada()->layout->add_style( 'content_style' ); ?>>
-        <?php if ( category_description() ) : ?>
-            <div id="post-<?php the_ID(); ?>" <?php post_class( 'fusion-archive-description' ); ?>>
-                <div class="post-content">
-                    <?php echo category_description(); ?>
-                </div>
-            </div>
-        <?php endif; ?>
-
-        <?php get_template_part( 'templates/blog', 'layout' ); ?>
-    </section>
+    <section id="sec-modeles"></section>
     <?php
 
 get_footer();

@@ -1,12 +1,14 @@
 #sec-modeles{
     background: #313131;
 }
-#sec-modeles .grid{
+#sec-modeles .flex{
     margin: auto;
     padding: 20px 0 30px;
     max-width: 630px;
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-gap: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
-
+#sec-modeles .flex div{
+    margin: 3px;
+}

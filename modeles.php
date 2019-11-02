@@ -27,7 +27,6 @@ function ajout_post_modeles()
     $argModele = array(
         'labels' => $labelsModeles,
         'public' => true,
-        'capability_type'    => 'modeles',
         'has_archive' => false,
         'hierarchical' => true,
         'menu_position' => 20,
@@ -44,87 +43,65 @@ function register(){
 
     wp_register_style( 'modeles', plugins_url( 'css/modeles.css', __FILE__ ) );
     wp_enqueue_style( 'modeles' );
-    wp_register_script('jquery', 'https://code.jquery.com/jquery-3.4.1.min.js', false, '3.4.1', true );
-    wp_enqueue_script('jquery');
-    wp_register_script('modeles', plugins_url('js/modeles.js', __FILE__), ['jquery'], '1.0.0', true);
+
+    wp_register_script('modeles', plugins_url('js/modeles.js', __FILE__), array('jquery'), '1.0.0', true);
     wp_enqueue_script('modeles');
+
+    /*Pass Ajax Url to modeles.js*/
+    wp_localize_script('modeles', 'ajaxurl', admin_url('admin-ajax.php') );
 
 }
 add_action('wp_enqueue_scripts', 'register');
 
-//Template personnalisé pour le plugin
-function override_template( $page_template )
-{
-    if (is_page( 'modeles' )) {
-        $page_template = dirname( __FILE__ ) . '/templates/page-modeles.php';
-    }
-    return $page_template;
-}
-add_filter('template_include', 'override_template');
+add_action('wp_ajax_get_modeles', 'get_modeles');
+add_action('wp_ajax_nopriv_get_modeles', 'get_modeles');
 
-//Ajoute un rout REST pour les requète ajax
-/*function initRoute(){
-    register_rest_route('modeles/v1', '/modeles/(?P\d+)', array(
-        'methods' => 'GET',
-        'callback' => "modeles",
-    ));
-}
-add_action("rest_api_init","initRoute");*/
-
-//Création du formulaire
-function form(){
-    $html = "<form id='filtres' method='GET'>
-                <select name='modeles' id='modeles'>
-                    <option value='tous'>Tous</option>
-                    <option value='jumele_ct'>Jumelé Cottage</option>
-                    <option value='jumele_pp'>Jumelé plein pied</option>
-                    <option value='maison_ct'>Jumelé Cottage</option>
-                    <option value='maison_pp'>Jumelé plein pied</option>
-                </select>
-                <select name='chambres' id='chambres'>
-                    <option value='tous'>Tous</option>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3+'>3 et +</option>
-                </select>
-                <select name='sbd' id='sdb'>
-                    <option value='tous'>Tous</option>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3+'>3 et +</option>
-                </select>
-                <select name='superficie' id='superficie'>
-                    <option value='tous'>Tous</option>
-                    <option value='1000-1400'>1000 à 1400p2</option>
-                    <option value='1401-1800'>1401 à 1800p2</option>
-                    <option value='1801+'>1801p2 et +</option>
-                </select>
-                <button class='btn' type='submit'>Rechercher</button>
-            </form>";
-    echo $html;
-}
-
-//Requète pour récupérer tout les modèles
-function allModeles(){
+function get_modeles(){
     $args = [
         'post_type' => 'modeles',
         'post_per_pages' => -1
     ];
-    $query_modeles = new WP_Query( $args );
-    return $query_modeles;
 
-    
-}
+    if (isset($_POST["modeles"]) && !empty($_POST["modeles"]) && $_POST["modeles"] != "tous"){
+        $tax_query = ['relation' => 'OR'];
+        $tax_query[] = [
+            'taxonomy' => 'category',
+            'field' => 'slug',
+            'terms' => [$_POST["modeles"]],
+        ];
+        $args = [
+            'post_type' => 'modeles',
+            'post_per_pages' => -1,
+            'tax_query' => $tax_query,
+        ];
+    }
 
+    $ajax_query_modeles = new WP_Query( $args );
 
-
-function modeles(){
-    if(isset($_GET['modeles'])){
-       return json_encode($_GET);
+    echo "<div class='flex'>";
+    if ($ajax_query_modeles->have_posts()){
+        while ($ajax_query_modeles->have_posts() ){
+            $ajax_query_modeles->the_post();
+            echo "<div>";
+            the_post_thumbnail( 'thumbnail' );
+            echo "</div>";
+        }
     }
     else{
-
-        allModeles();
-
+        echo "Aucun ne résultat ne correspond à la recherche";
     }
+    echo "</div>";
+    die();
 }
+
+//Template personnalisé pour le plugin
+function override_template_modeles( $modeles_template )
+{
+    if (is_page( 'modeles' )) {
+        $modeles_template = dirname( __FILE__ ) . '/templates/page-modeles.php';
+    }
+    return $modeles_template;
+}
+add_filter('template_include', 'override_template_modeles');
+
+
