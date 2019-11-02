@@ -24,8 +24,11 @@ class Modele
         add_action('wp_ajax_get_modeles', [$this, 'get_modeles']);
         add_action('wp_ajax_nopriv_get_modeles', [$this, 'get_modeles']);
 
-        /*Changer le template modèle par celui du plugin*/
+        /*Changer le template modele par celui du plugin*/
         add_filter('template_include', [$this,'override_template_modeles']);
+
+        /*Changer le template single-modele par celui du plugin*/
+        add_filter('template_include', [$this, 'override_template_single_modeles']);
 
     }
 
@@ -125,7 +128,9 @@ class Modele
             while ($ajax_query_modeles->have_posts() ){
                 $ajax_query_modeles->the_post();
                 echo "<div>";
+                echo "<a href='".get_permalink()."' >";
                 the_post_thumbnail( 'thumbnail' );
+                echo "</a>";
                 echo "</div>";
             }
         }
@@ -141,6 +146,14 @@ class Modele
     {
         if (is_page('modeles')) {
             $modeles_template = dirname(__FILE__) . '/templates/page-modeles.php';
+        }
+        return $modeles_template;
+    }
+    /*Fonction pour changer le template single-modèles par celui du plugin*/
+    public function override_template_single_modeles($modeles_template)
+    {
+        if (get_post_type() =='modeles') {
+            $modeles_template = dirname(__FILE__) . '/templates/single-modeles.php';
         }
         return $modeles_template;
     }

@@ -1,3 +1,6 @@
+.flex{
+    display: flex;
+}
 #sec-modeles{
     background: #313131;
 }
@@ -5,10 +8,29 @@
     margin: auto;
     padding: 20px 0 30px;
     max-width: 630px;
-    display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 #sec-modeles .flex div{
     margin: 3px;
+}
+#sec-filtres, #sec-modeles{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+#sec-filtres #filtres_modeles{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+#sec-filtres #filtres_modeles select {
+    width: 25%;
+}
+#loader{
+    display: block;
+    margin: auto;
+}
+.spec table th{
+    text-align: left;
 }

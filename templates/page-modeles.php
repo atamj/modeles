@@ -7,11 +7,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit( 'Direct script access denied.' );
 }
- get_header();
-
+get_header();
     ?>
     <section id="sec-filtres">
-
+        <h1>
+            <?php the_title(); ?>
+        </h1>
+        <?php the_content(); ?>
         <form id='filtres_modeles' method='POST'>
             <select name='modeles' id='modeles'>
                 <option value='tous'>Tous</option>
@@ -43,6 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     </section>
 
     <section id="sec-modeles"></section>
+    <img src="<?= plugins_url('img/loader.gif', __FILE__) ?>" alt="" id="loader">
     <?php
 
 get_footer();
