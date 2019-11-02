@@ -17,8 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <option value='tous'>Tous</option>
                 <option value='jumele-cottage'>Jumelé Cottage</option>
                 <option value='jumele-plein-pied'>Jumelé plein pied</option>
-                <option value='maison-cottage'>Jumelé Cottage</option>
-                <option value='maison-plein-pied'>Jumelé plein pied</option>
+                <option value='maison-cottage'>Maison Cottage</option>
+                <option value='maison-plein-pied'>Maison plein pied</option>
             </select>
             <select name='chambres' id='chambres'>
                 <option value='tous'>Tous</option>
@@ -38,7 +38,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <option value='1401-1800'>1401 à 1800p2</option>
                 <option value='1801p2'>1801p2 et +</option>
             </select>
-            <button class='btn' type='submit'>Rechercher</button>
         </form>
 
     </section>

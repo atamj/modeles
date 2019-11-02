@@ -9,9 +9,9 @@ jQuery( document ).ready( function() {
             ajaxurl,{
                 'action': 'get_modeles',
                 'modeles': form.modeles.value,
-                'chambres': form.modeles.value,
-                'sdb': form.modeles.value,
-                'superficie': form.modeles.value,
+                'chambres': form.chambres.value,
+                'sdb': form.sdb.value,
+                'superficie': form.superficie.value,
 
             },
             function (response) {

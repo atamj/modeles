@@ -79,13 +79,38 @@ class Modele
             'post_per_pages' => -1
         ];
 
-        if (isset($_POST["modeles"]) && !empty($_POST["modeles"]) && $_POST["modeles"] != "tous"){
-            $tax_query = ['relation' => 'OR'];
-            $tax_query[] = [
-                'taxonomy' => 'category',
-                'field' => 'slug',
-                'terms' => [$_POST["modeles"]],
-            ];
+        if (isset($_POST["modeles"]) && !empty($_POST["modeles"])){
+            $tax_query = ['relation' => 'AND'];
+
+            if ($_POST["modeles"] != "tous"){
+                $tax_query[] = [
+                    'taxonomy' => 'category',
+                    'field' => 'slug',
+                    'terms' => [$_POST["modeles"]],
+                ];
+            }
+            if ($_POST["chambres"] != "tous"){
+                $tax_query[] = [
+                    'taxonomy' => 'category',
+                    'field' => 'slug',
+                    'terms' => [$_POST["chambres"]],
+                ];
+            }
+            if ($_POST["sdb"] != "tous") {
+                $tax_query[] = [
+                    'taxonomy' => 'category',
+                    'field' => 'slug',
+                    'terms' => [$_POST["sdb"]],
+                ];
+            }
+            if ($_POST["superficie"] != "tous") {
+                $tax_query[] = [
+                    'taxonomy' => 'category',
+                    'field' => 'slug',
+                    'terms' => [$_POST["superficie"]],
+                ];
+            }
+
             $args = [
                 'post_type' => 'modeles',
                 'post_per_pages' => -1,
