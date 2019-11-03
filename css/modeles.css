@@ -5,6 +5,27 @@
 .d-inline-block{
     display: inline-block;
 }
+.space-between{
+    justify-content: space-between;
+}
+.space-around{
+    justify-content: space-around;
+}
+.w-50{
+    width: 50%;
+}
+.p-2{
+    padding: 20px;
+}
+.pl-2{
+    padding-left: 20px;
+}
+pr-2{
+    padding-right: 20px;
+}
+.single-modeles h2{
+    color: white;
+}
 #sec-modeles{
     background: #313131;
 }

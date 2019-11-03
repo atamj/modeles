@@ -12,9 +12,12 @@ get_header();
     <section id="baniere">
 
         <?php the_post_thumbnail('full') ?>
-        <div class="ban-content">
-            <h1>MODÈLE <?php the_title() ?></h1>
-            <ul class="flex">
+        <div class="ban-content flex space-around">
+            <div class="w-50">
+                <h1>MODÈLE <?php the_title() ?></h1>
+                <span><?php the_field('etages') ?> étages</span>
+            </div>
+            <ul class="flex space-around w-50">
                 <li class="ch d-inline-block"><?php the_field('chambres') ?></li>
                 <li class="sdb d-inline-block"><?php the_field('salle_de_bain') ?></li>
                 <li class="gar d-inline-block"><?php the_field('garages') ?></li>
@@ -24,13 +27,13 @@ get_header();
 
     </section>
     <section id="sec-content" class="flex">
-        <div class="resume">
+        <div class="resume w-50 p-2">
             <h2><?php the_title() ?></h2>
             <?php the_content() ?>
 
             <a class="btn" href="#">Contactez</a>
         </div>
-        <div class="spec">
+        <div class="spec w-50 p-2">
             <h2>SPÉCIFICATIONS</h2>
             <table>
                 <tr>
