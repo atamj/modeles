@@ -1,20 +1,28 @@
 .flex{
     display: flex;
 }
+
+.d-inline-block{
+    display: inline-block;
+}
 #sec-modeles{
     background: #313131;
 }
-#sec-modeles .flex{
+#sec-modeles .flex, #realisations .flex{
     margin: auto;
     padding: 20px 0 30px;
     max-width: 630px;
     justify-content: space-around;
     flex-wrap: wrap;
 }
+#realisations .flex li{
+    list-style-type: none;
+    margin: 3px;
+}
 #sec-modeles .flex div{
     margin: 3px;
 }
-#sec-filtres, #sec-modeles{
+#sec-filtres, #sec-modeles,.container{
     width: 100%;
     max-width: 1200px;
     margin: auto;

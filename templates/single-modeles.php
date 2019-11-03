@@ -12,18 +12,18 @@ get_header();
     <section id="baniere">
 
         <?php the_post_thumbnail('full') ?>
-        <div>
+        <div class="ban-content">
             <h1>MODÈLE <?php the_title() ?></h1>
             <ul class="flex">
-                <li class="ch"></li>
-                <li class="sdb"></li>
-                <li class="gar"></li>
-                <li class="sup"></li>
+                <li class="ch d-inline-block"><?php the_field('chambres') ?></li>
+                <li class="sdb d-inline-block"><?php the_field('salle_de_bain') ?></li>
+                <li class="gar d-inline-block"><?php the_field('garages') ?></li>
+                <li class="sup d-inline-block"><?php the_field('superficie') ?></li>
             </ul>
         </div>
 
     </section>
-    <section id="content" class="flex">
+    <section id="sec-content" class="flex">
         <div class="resume">
             <h2><?php the_title() ?></h2>
             <?php the_content() ?>
@@ -65,8 +65,37 @@ get_header();
         </div>
     </section>
     <section id="realisations">
-        <h2>RÉALISATION POUR CE MODÈLE</h2>
-       
+        <div class="contenaire">
+            <h2>RÉALISATION POUR CE MODÈLE</h2>
+            <?php
+            $args = [
+                'post_type' => 'modeles',
+                'post_per_pages' => -1,
+                'tax_query' => [
+                    'taxonomy' => 'category',
+                    'field' => 'slug',
+                    'terms' => get_field('modeles'),
+                ],
+            ];
+            $query_realisations = new WP_Query($args);
+
+            echo "<ul class='flex'>";
+            if ($query_realisations->have_posts()) {
+                while ($query_realisations->have_posts()) {
+                    $query_realisations->the_post();
+
+                    echo "<li>";
+
+                    echo "<a href='".get_the_post_thumbnail_url()."' data-lightbox='realisations' >";
+                    the_post_thumbnail('thumbnail');
+                    echo "</li>";
+                    echo "</a>";
+                }
+            }
+            ?>
+            </ul>
+            <a class="btn" href="#">Contactez</a>
+        </div>
     </section>
 
 <?php

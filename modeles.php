@@ -67,6 +67,14 @@ class Modele
         wp_register_style('modeles', plugins_url('css/modeles.css', __FILE__));
         wp_enqueue_style('modeles');
 
+        /*lightbox css */
+        wp_register_style('lightbox', 'https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css');
+        wp_enqueue_style('lightbox');
+
+        /*lightbox js */
+        wp_register_script('lightbox', 'https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox-plus-jquery.min.js', false, '1.0.0', true);
+        wp_enqueue_script('lightbox');
+
         if (is_page("modeles")){
             wp_register_script('modeles', plugins_url('js/modeles.js', __FILE__), array('jquery'), '1.0.0', true);
             wp_enqueue_script('modeles');
